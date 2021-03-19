@@ -7,6 +7,7 @@ export default async (req, res) => {
     if (userResult.rows[0]) {
       return res.json(userResult.rows[0])
     }
+    if (latitude == null || longitude == null) return res.status(400).end()
     try {
       await client.query("INSERT INTO Users (name, latitude, longitude) VALUES ($1, $2, $3)", [name, latitude, longitude])
       res.json({ name, latitude, longitude })
